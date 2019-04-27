@@ -13,6 +13,8 @@ class FileHandler:
         self.baseDate = str(year) + ":01:01 00:{:02d}:{:02d}"
 
     def _getRunningDate(self):
+        self.count = 0
+
         seconds = self.count % 60
         hours = self.count // 60
 
@@ -29,5 +31,8 @@ class FileHandler:
             ["exiftool", "-q", "-overwrite_original",
                 "-DateTimeOriginal='{}'".format(self._getRunningDate()),
                 newName])
+
+        # displays
+        # subprocess.call(["feh", "--scale-down", newName])
 
         self.count += 1

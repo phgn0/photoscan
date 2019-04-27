@@ -12,14 +12,23 @@ def main():
     directory = sys.argv[1]
 
     handler = FileHandler()
-    handler.setSeriesName("test")
-    handler.setSeriesDate(1990)
 
     w = FileWatcher(directory, handler.processNewFile)
     w.run()
 
-    while True:
-        pass
+    try:
+        while True:
+            seriesName = input("Current series name: ")
+            seriesYear = input("Series Date: ")
+
+            handler.setSeriesName(seriesName)
+            handler.setSeriesDate(int(seriesYear))
+            input("Running series... ")
+
+    except KeyboardInterrupt:
+        print("")   # force newline in terminal
+        w.stop()
+        sys.exit()
 
 
 if __name__ == '__main__':
