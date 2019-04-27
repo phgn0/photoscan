@@ -13,6 +13,7 @@ def main():
 
     handler = FileHandler()
     handler.setSeriesName("test")
+    handler.setSeriesDate(1990)
 
     w = FileWatcher(directory, handler.processNewFile)
     w.run()

@@ -25,6 +25,8 @@ class FileWatcher(FileSystemEventHandler):
 
         elif event.event_type == 'created':
             # Take any action here when a file is first created.
+            if event.src_path.endswith("_exiftool_tmp"):
+                return
             self.callback(event.src_path)
 
         # elif event.event_type == 'modified':
