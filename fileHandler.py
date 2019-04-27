@@ -41,6 +41,10 @@ class FileHandler:
         self.displayProcess = subprocess.Popen(
             ["feh", "--scale-down", newName])
 
+        # reduce file size
+        subprocess.Popen(
+            ["jpeg-recompress", "-Q", newName, newName])
+
         self.count += 1
         self.lastFile = newName
 
