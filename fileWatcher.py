@@ -3,43 +3,30 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 
-class Watcher:
-    DIRECTORY_TO_WATCH = "/path/to/my/directory"
-
-    def __init__(self):
+class FileWatcher(FileSystemEventHandler):
+    def __init__(self, directory, callback):
+        self.directory = directory
+        self.callback = callback
         self.observer = Observer()
 
     def run(self):
-        event_handler = Handler()
+        event_handler = self
         self.observer.schedule(
-            event_handler, self.DIRECTORY_TO_WATCH, recursive=True)
+            event_handler, self.directory, recursive=True)
         self.observer.start()
-        try:
-            while True:
-                time.sleep(5)
-        except:
-            self.observer.stop()
-            print("Error")
 
+    def stop(self):
+        self.observer.stop()
         self.observer.join()
 
-
-class Handler(FileSystemEventHandler):
-
-    @staticmethod
-    def on_any_event(event):
+    def on_any_event(self, event):
         if event.is_directory:
             return None
 
         elif event.event_type == 'created':
             # Take any action here when a file is first created.
-            print("Received created event - %s." % event.src_path)
+            self.callback(event.src_path)
 
-        elif event.event_type == 'modified':
-            # Taken any action here when a file is modified.
-            print("Received modified event - %s." % event.src_path)
-
-
-if __name__ == '__main__':
-    w = Watcher()
-    w.run()
+        # elif event.event_type == 'modified':
+        #     # Taken any action here when a file is modified.
+        #     print("Received modified event - %s." % event.src_path)
