@@ -23,7 +23,15 @@ def main():
 
             handler.setSeriesName(seriesName)
             handler.setSeriesDate(int(seriesYear))
-            input("Running series... ")
+
+            print("Running series...")
+
+            # command loop
+            command = ""
+            while command != "n":
+                command = input("[d]elete last image or [n]ext series? ")
+                if command == "d":
+                    handler.deleteLastFile()
 
     except KeyboardInterrupt:
         print("")   # force newline in terminal

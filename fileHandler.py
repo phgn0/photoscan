@@ -23,7 +23,8 @@ class FileHandler:
     def processNewFile(self, path):
         # end showing old image
         if (self.displayProcess):
-            self.displayProcess.kill()
+            self.displayProcess.terminate()
+            self.displayProcess.wait()
 
         # rename file
         directory = os.path.dirname(path) + "/"
@@ -41,3 +42,11 @@ class FileHandler:
             ["feh", "--scale-down", newName])
 
         self.count += 1
+        self.lastFile = newName
+
+    def deleteLastFile(self):
+        self.displayProcess.terminate()
+        self.displayProcess.wait()
+
+        os.remove(self.lastFile)
+        self.count -= 1
