@@ -10,9 +10,10 @@ class FileHandler:
     def setSeriesName(self, name):
         self.baseName = name
 
-    def setSeriesDate(self, year):
+    # provide date in YYYY:MM format
+    def setSeriesDate(self, date):
         self.count = 0
-        self.baseDate = str(year) + ":01:01 00:{:02d}:{:02d}"
+        self.baseDate = date + ":01 00:{:02d}:{:02d}"
 
     def _getRunningDate(self):
         seconds = self.count % 60

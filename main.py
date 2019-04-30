@@ -19,10 +19,10 @@ def main():
     try:
         while True:
             seriesName = input("Current series name: ")
-            seriesYear = input("Series Date: ")
+            seriesDate = input("Series Date (YYYY:MM) : ")
 
             handler.setSeriesName(seriesName)
-            handler.setSeriesDate(int(seriesYear))
+            handler.setSeriesDate(seriesDate)
 
             print("Running series...")
 
